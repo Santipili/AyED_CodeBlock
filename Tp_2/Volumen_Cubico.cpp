@@ -18,5 +18,8 @@ int main ()
 
     cout << "el volumen calculado es " << volumen;
 
+    cin.ignore(); 
+    cin.get(); 
+
     return 0;
 }

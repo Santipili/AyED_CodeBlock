@@ -43,6 +43,8 @@ int main ()
         cout << "el resultado es " << valor;
         }
 
+    cin.ignore(); 
+    cin.get(); 
 
     return 0;
 }
