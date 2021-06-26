@@ -48,16 +48,16 @@ int main() {
         cout << setw(16)  << "4_ " << "Banana"  <<  endl;
         cout << setw(16)  << "5_ " << "Naranja"  <<  endl;
         cout << setw(16)  << "6_ " << "Mandarina" <<  endl;
-        cout << setw(13) << " ";
+        cout << setw(13) << "= ";
         cin >> aux;
 
-            fruta = tFruit(aux-1);
+        fruta = tFruit(aux-1);
 
 
 
     cout << endl << "fecha" << setw(13) << ": ";
     cout << currentDateTime() << endl;
-    cout << "codigo provedor" << setw(2) << ": " << codigo << endl;
+    cout << "codigo provedor" << setw(3) << ": " << codigo << endl;
     cout << "razon social" << setw(6) << ": " << razonsocial << endl;
     cout << "pedido" << setw(12) << ": " << showFruit(fruta) << endl;
     cout << "fecha de entrega: " << setw(2) << dia << "-" << setw(2) << mes << "-" << anio << endl;
