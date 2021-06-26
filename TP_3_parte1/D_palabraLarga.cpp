@@ -4,59 +4,80 @@ using namespace std;
 #include <fstream>
 #include <string>
 
+
 int main() {
-    int contador, aux, cantLetras ;
+    int contador, aux, cantLetras, maxPalabras ;
     string palabra, frase;
     ifstream archivo;
 
+    palabra = "a";
+    maxPalabras = 0;
+
+
     archivo.open("frasesDeBjarme.txt");
 
-
-
-    if (archivo.is_open()){
+     if ( archivo.is_open() ) {
 
         getline(archivo, frase);
 
-
-        cantLetras = 0;
-        contador = 0;
-
         while (frase.size() != 0){
+        contador = 0;
+            
+        for (int i=0; i < frase.size(); i++){
+
+            if ( frase[i+1] == ' ' || frase[i+1] == '\0' ){
+                contador++;
+            }
+        }
+
+        maxPalabras += contador;
+           
+        getline(archivo, frase);
+
+        }
+    
+    }
+    else {
+
+        cout << "ERROR!!! No se pudo abrir el archivo" << endl;
+
+    }
+
+    archivo.close();                                                                                                                                                                                                   
 
 
 
-            for (int i=0; i <= frase.size(); i++){
+    archivo.open("frasesDeBjarme.txt");
 
-                if (frase[i] != ' ' && frase[i] != '\0'){
-                    contador++;
-                }
-                else {
+    if ( archivo.is_open() ) {
+        archivo >> frase ;
 
-                    if (contador >> cantLetras){
+        for ( int i = 0; i <= maxPalabras; i++ ){ //agregar condicion de while
 
-                        cantLetras = contador;
+            if (frase.size() > palabra.size() ){
 
-                        palabra = frase.substr(i-contador, contador);
-                    }
-
-                    contador = 0;
-
-                }
-
+                palabra = frase;
             }
 
-           // cout << frase << endl;
-            getline(archivo, frase);
+            archivo >> frase;
 
         }
 
+        cantLetras = palabra.size();
+
+        cout << "La palabra mas larga es: " <<palabra << endl;
+        cout << "Y contiene " << cantLetras << " letras";
+
     }
     else {
+
         cout << "ERROR!!! No se pudo abrir el archivo" << endl;
+
     }
 
+    archivo.close();
 
-    cout << palabra << " " << cantLetras;
 
     return 0;
 }
+

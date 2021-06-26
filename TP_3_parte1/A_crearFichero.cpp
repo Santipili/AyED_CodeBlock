@@ -10,13 +10,13 @@ int main() {
 
     archivo.open("frasesDeBjarme.txt");   //creee el archivo de txt, el ofstream me deja crear el ifstream lee
 
-    cout << "ingrese la frase " << contador << " (fin para terminar):" << endl;
+    cout << "ingrese la frase " << contador << " (X(mayuscula) para terminar):" << endl;
     getline(cin, frase);
 
-    while (frase != "fin") {
+    while (frase != "X") {
         contador++;
         archivo << frase << endl;
-        cout << "ingrese la frase " << contador << " (fin para terminar):" << endl;
+        cout << "ingrese la frase " << contador << " (X (mayuscula) para terminar):" << endl;
         getline(cin, frase);
     }
 
