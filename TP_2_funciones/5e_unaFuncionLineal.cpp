@@ -6,6 +6,8 @@ double specializeX( double x );
 int main() {
     double x1, y1, x2, y2, x3, y3, x4, y4;
 
+    cout << "Especializaremos 4 valores de x en la recta Y=2*X+1 " << endl;
+
     cout << "Ingrese un valor para x1: "; cin >> x1;
     cout << "Ingrese un valor para x2: "; cin >> x2;
     cout << "Ingrese un valor para x3: "; cin >> x3;

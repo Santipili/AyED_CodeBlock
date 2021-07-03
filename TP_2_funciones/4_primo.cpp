@@ -30,7 +30,7 @@ bool primo(int num) {
 	resto = 1;
 
 
-	while (resto != 0 and c < num/2) {
+	while (resto != 0 && c < num/2) {
 		c += 1 ;
 		resto = num % c ;
 	}

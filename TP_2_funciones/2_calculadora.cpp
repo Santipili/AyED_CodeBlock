@@ -1,8 +1,9 @@
 #include <iostream>
-#include <cstdlib>
+
 using namespace std;
 
 double calculadora(int o, double a, double b) ;
+int menu();
 
 int main ()
 {
@@ -13,46 +14,60 @@ int main ()
     cout << " A = " ;
     cin >> A;
 
-    cout << " Seleccione una operacion " << endl;
-    cout << " 1._ Suma " << endl ;
-    cout << " 2._ Resta " << endl ;
-    cout << " 3._ Multiplicacion " << endl ;
-    cout << " 4._ Division " << endl ;
-    cin >> operacion;
+   operacion = menu();
 
     cout << " Ingrese un segundo valor " << endl;
     cout << " B = " ;
     cin >> B;
 
     cout << " El resultado es " << calculadora(operacion,A,B) ;
-    
+
     return 0;
 }
 
-double calculadora (int o, double a, double b ) {
-    double valor ; 
+int menu() {
+    int opcion;
 
-/*  operacion
-    " 1._ Suma " 
-    " 2._ Resta "
-    " 3._ Multiplicacion " 
-    " 4._ Division "    */
+    do {
+    cout << " Seleccione una operacion " << endl;
+    cout << " 1._ Suma " << endl ;
+    cout << " 2._ Resta " << endl ;
+    cout << " 3._ Multiplicacion " << endl ;
+    cout << " 4._ Division " << endl ;
+    cin >> opcion;
+    }
+     while ( (opcion < 1) || (opcion > 4) ) ;
 
-    if (o == 1) {
-        valor = a + b;
-        }
-
-    if (o == 2) {
-        valor = a - b; 
-        }
-
-    if (o == 3) {
-        valor = a * b;     
-        }
-
-    if (o == 4) {
-        valor = a / b;       
-        }
-
-    return valor;
+    return opcion;
 }
+
+double calculadora (int op, double x, double y ) {
+    double resultado;
+
+    switch (op)  {
+
+        case 1:{
+            resultado = x +y;
+
+        } break;
+
+        case 2:{
+            resultado = x - y;
+
+        } break;
+
+        case 3:{
+            resultado = x*y;
+
+        } break;
+
+        case 4:{
+            resultado = x/y;
+
+        } break;
+    }
+
+    return resultado;
+}
+
+

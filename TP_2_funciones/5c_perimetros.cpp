@@ -2,61 +2,87 @@
 #include <cmath>
 using namespace std;
 
-double calculatePerimeter ( int opcion , double ladoA, double ladoB, double ladoC);
+double calculateSquare (double ladoA);
+double calculateRectangulo(double ladoA, double ladoB);
+double calculateTriangulo(double ladoA, double ladoB, double ladoC);
+int menu();
 
 int main() {
 	int opcion;
 	double perimetro, ladoA, ladoB, ladoC;
 
-	cout << "1_Cuadrado" << endl ;
-	cout << "2_Rectangulo" << endl ;
-	cout << "3_Triangulo" << endl ;
-	cin >> opcion ;
+    opcion = menu();
 
-    while (opcion < 1 or opcion > 3){
-		cout << "Ingrese una opcion valida" <<endl;
-		cin >> opcion ;
-	}
+    switch (opcion){
 
+        case 1:{
 
-	if (opcion == 1) {
-		cout << "Ingrese el valor de un lado" << endl;
-		cin >> ladoA ;
-		perimetro = calculatePerimeter (opcion, ladoA, 0, 0);
-	}
+        cout << "Ingrese el valor de un lado" << endl;
+        cin >> ladoA ;
 
-	if (opcion == 2) {
-		cout << "Ingrese el valor de la base y de la altura" << endl;
-		cin >> ladoA ;
-		cin >> ladoB ;
-		perimetro = calculatePerimeter (opcion, ladoA, ladoB, 0);
-	}
+        perimetro = calculateSquare(ladoA);
 
-	if (opcion == 3) {
-		cout << "Ingrese el valor de los tres lados" << endl;
-		cin >> ladoA ;
-		cin >> ladoB ;
-		cin >> ladoC ;
-		perimetro = calculatePerimeter (opcion, ladoA, ladoB, ladoC);
-	}
+        } break;
+
+        case 2:{
+            cout << "Ingrese el valor de la base y de la altura" << endl;
+            cin >> ladoA ;
+            cin >> ladoB ;
+
+            perimetro = calculateRectangulo(ladoA, ladoB);
+
+		} break;
+
+        case 3:{
+            cout << "Ingrese el valor de los tres lados" << endl;
+            cin >> ladoA ;
+            cin >> ladoB ;
+            cin >> ladoC ;
+
+            perimetro = calculateTriangulo(ladoA, ladoB, ladoC);
+        } break;
+
+    }
 
 	cout << "El perimetro es: " << perimetro;
 
 	return 0;
 }
 
-double calculatePerimeter ( int opcion , double ladoA, double ladoB, double ladoC) {
-    double perimeter;
 
-    if (opcion == 1) {
-		perimeter= 4 * ladoA;}
+double calculateSquare (double ladoA){
+    double perimetro;
 
-	if (opcion == 2)
-		perimeter= 2*ladoA + 2*ladoB;
+    perimetro = 4 * ladoA;
 
-	if (opcion == 3)
-		perimeter= ladoA + ladoB + ladoC;
+    return perimetro;
+}
 
+double calculateRectangulo (double ladoA, double ladoB){
+    double perimetro;
 
-	return perimeter;
+    perimetro = 2*ladoA + 2*ladoB;
+
+    return perimetro;
+}
+
+double calculateTriangulo ( double ladoA, double ladoB, double ladoC) {
+    double perimetro;
+
+    perimetro= ladoA + ladoB + ladoC;
+
+	return perimetro;
+}
+
+int menu(){
+    int opcion;
+
+   do {
+        cout << "1_Cuadrado" << endl ;
+        cout << "2_Rectangulo" << endl ;
+        cout << "3_Triangulo" << endl ;
+        cin >> opcion;
+	} while (opcion < 1 or opcion > 3);
+
+    return opcion;
 }
