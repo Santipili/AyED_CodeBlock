@@ -9,18 +9,25 @@ int menu ();
 
 int main() {
 	int option;
+    double sueldo;
 
-      	option = menu();
+    cout << "Ingrese el sueldo a incrementar:" << endl;
+    cin >> sueldo;
 
+    option = menu(sueldo);
+
+
+/*
       	while ( option != 0){
 
          	switch (option){
         		
 
-        			case 1: {
+        		case 1: {
         				
-        			} 
-        			break;
+                    cout
+        		} 
+        		break;
 
         		case 2: {
         			
@@ -32,42 +39,27 @@ int main() {
         		}
         		break;
 
+                case 4:{
+                    
+                }
+                break;
+
         	}
 
         	cout << endl;
         	option = menu ();
         }
-
+*/
         cout << endl << "Gracias, hasta luego.";
 
 
 	return 0;
 }
 
-int menu (){
-	int op =-1;
+int menu (double sueldo){
+    int a;
+    double b;
 
-	while ( (op < 0) || (op > 3) ){
-
-		cout << "Elija opcion:" << endl;
-        cout << setw(16)  << "1_ " << ""  << endl;
-        cout << setw(16)  << "2_ " << "" << endl;
-        cout << setw(16)  << "3_ " << "" <<  endl;
-        cout << setw(16)  << "4_ " << ""  << endl;
-        cout << setw(16)  << "5_ " << "" << endl;
-        cout << setw(16)  << "6_ " << "" <<  endl;
-
-        cout << endl << setw(16)  << "0_ " << "Salir" <<  endl;
-        cout << setw(13) << "= ";
-        cin >> op;
-
-        if ( (op < 0) || (op > 3) ){
-
-        cout << endl << "Opcion no Valida";
-
-        }
-
-	}
 
 
 	return op;

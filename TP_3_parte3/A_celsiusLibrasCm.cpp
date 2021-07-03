@@ -1,9 +1,5 @@
 #include <iostream>
 using namespace std;
-#include <string>
-#include <cctype>
-#include <iomanip>
-#include <time.h>
 
 int menu ();
 
@@ -15,7 +11,7 @@ int main() {
       	while ( option != 0){
 
          	switch (option){
-        		double temperature, weight, length, aux; 
+        		double temperature, weight, length, aux;
         			case 1: {
         				cout << "Ingrese la longitud en Centimetros:" << endl;
         				cin >> length;
@@ -24,9 +20,9 @@ int main() {
 
         				length = aux;
 
-        				cout << endl << "Su equivalente en Pulgadas es: " << length << endl; 
+        				cout << endl << "Su equivalente en Pulgadas es: " << length << endl;
 
-        			} 
+        			}
         			break;
 
         		case 2: {
@@ -37,7 +33,7 @@ int main() {
 
         			temperature = aux;
 
-        			cout << endl << "Su equivalente en Farenheit es: " << temperature << endl; 
+        			cout << endl << "Su equivalente en Farenheit es: " << temperature << endl;
 
         		}
         		break;
@@ -50,7 +46,7 @@ int main() {
 
         			weight = aux;
 
-        			cout << endl << "Su equivalente en Kilogramos es: " << weight << endl; 
+        			cout << endl << "Su equivalente en Kilogramos es: " << weight << endl;
 
         		}
         		break;
