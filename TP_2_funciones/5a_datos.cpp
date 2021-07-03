@@ -1,20 +1,13 @@
 #include <iostream>
-#include <cctype>
+
 using namespace std ;
 
-int datos (int edad, string sexo, double altura) ;
+void showDatos (int edad, string sexo, double altura) ;
 
 int main() {
-	int edad; 
-	string sexo; 
+	int edad;
+	string sexo;
 	double altura;
-
-	datos(edad, sexo, altura) ;
-	
-	return 0;
-}
-
-int datos (int edad, string sexo, double altura){
 
 	cout << "ingrese su Edad : " ;
 	cin >> edad ;
@@ -25,10 +18,17 @@ int datos (int edad, string sexo, double altura){
 	cout << "Ingrese su altura (en mts) : " ;
 	cin >> altura ;
 
-	cout << "Sus datos son :" << endl ;
-	cout << "Edad :" << edad << endl;
-	cout << "Sexo :" << sexo << endl;
-	cout << "Altura :" << altura ;
+	showDatos(edad, sexo, altura) ;
 
 	return 0;
+}
+
+void showDatos (int edad, string sexo, double altura){
+
+	cout << "Sus datos son " << endl ;
+	cout << "         Edad: " << edad << endl;
+	cout << "         Sexo: " << sexo << endl;
+	cout << "       Altura: " << altura ;
+
+	return;
 }
