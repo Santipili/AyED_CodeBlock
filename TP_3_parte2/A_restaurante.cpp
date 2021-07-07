@@ -3,12 +3,19 @@ using namespace std;
 #include <string>
 #include <cctype>
 #include <iomanip>
+#include <ctime>
 
 typedef enum {Julia, Esteban, Wally, Maria} tMozo;
 typedef enum {Champinones, Carpaccio, Empanadas } tEntrada;
 typedef enum {Merluza, Muslitos, Paella, Cordero, SandwichTofu} tPrincipal;
 typedef enum {MousseChoc, EnsaladaFrut, Flan} tPostre;
 
+const string currentDateTime();
+
+int chooseName();
+int chooseStarter();
+int chooseMain();
+int chooseDessert();
 
 string showName(tMozo nombre);
 string showStarter(tEntrada entrada);
@@ -16,49 +23,32 @@ string showMain(tPrincipal principal);
 string showDessert(tPostre postre);
 
 int main() {
-    int table, hour, day, month, aux;
-    string comentario;
+    int table, aux1, aux2, aux3, aux4;
     tMozo name;
     tEntrada starter;
     tPrincipal mainCourse;
     tPostre dessert;
 
-    cout << "nombre: " << endl;
-    cout << "1_ Julia" << endl;
-    cout << "2_ Esteban" << endl;
-    cout << "3_ Wally" << endl;
-    cout << "4_ Maria" << endl;
-    cin >> aux;
-    name = tMozo(aux-1);
 
-    cout << "numero de meza: " << endl;
+    aux1 = chooseName();
+    name = tMozo(aux1);
+
+    cout << "numero de meza: ";
     cin >> table;
+    cout << endl;
 
-    cout << "Entrada: " << endl;
-    cout << "1_ Champinones Rellenos" << endl;
-    cout << "2_ Carpaccio de Salmon" << endl;
-    cout << "3_ Empanadas Saltenas" << endl;
-    cin >> aux;
-    starter = tEntrada(aux-1);
+    aux2 = chooseStarter();
+    starter = tEntrada(aux2);
 
-    cout << "Plato Principal:" << endl;
-    cout << "1_ Merluza en Salsa" << endl;
-    cout << "2_ Muslitos de Pollo al Sesamo" << endl;
-    cout << "3_ Paella Valenciana" << endl;
-    cout << "4_ Pierna de Cordero" << endl;
-    cout << "5_ Sandwich de Tofu con Satay" << endl;
-    cin >> aux;
-    mainCourse = tPrincipal(aux-1);
+    aux3 = chooseMain();
+    mainCourse = tPrincipal(aux3);
 
-    cout << "Postre:" <<endl;
-    cout << "1_ Mousse de Chocolate" <<endl;
-    cout << "2_ Flan con ddl y crema" << endl;
-    cout << "3_ Ensalada de Fruta" << endl;
-    cin >> aux;
-    dessert = tPostre(aux-1);
+    aux4 = chooseDessert();
+    dessert = tPostre(aux4);
 
     cout << "Mozo: " << showName(name) << endl;
-    cout << "el dia de hoy --- mesa: " << table << endl; /* debo agregar la fecha y hora */
+    cout << "fecha:           " << currentDateTime() << endl;
+    cout << "mesa:            " << table << endl;
     cout << endl;
     cout << "Entrada:         " << showStarter(starter) << endl;
     cout << "Plato Principal: " << showMain(mainCourse) << endl;
@@ -92,7 +82,7 @@ string showStarter(tEntrada entrada){
 
     if (entrada == Champinones){
         starter = "Champinones Rellenos";
-    }
+    }                                       /* Esto lo podria resumir con un "SWITCH" */
     if (entrada == Carpaccio){
         starter = "Carpaccio de Salmon";
     }
@@ -111,7 +101,7 @@ string showMain(tPrincipal principal){
     }
     if (principal == Muslitos){
         mainCourse = "Muslitos de Pollo al Sesamo";
-    }
+    }                                               /* Esto lo podria resumir con un "SWITCH" */
     if (principal == Paella){
         mainCourse = "Paella Valenciana";
     }
@@ -133,7 +123,7 @@ string showDessert(tPostre postre){
     }
     if (postre == EnsaladaFrut){
         dessert = "Ensalada de Fruta";
-    }
+    }                                       /* Esto lo podria resumir con un "SWITCH" */
     if (postre == Flan){
         dessert = "Flan con ddl y crema";
     }
@@ -142,12 +132,87 @@ string showDessert(tPostre postre){
 }
 
 
+int chooseName(){
+    int opcion;
+
+    do {
+    cout << "Nombre: " << endl;
+    cout << "1_ Julia" << endl;
+    cout << "2_ Esteban" << endl;
+    cout << "3_ Wally" << endl;
+    cout << "4_ Maria" << endl;
+    cin >> opcion;
+    cout << endl;
+    } while (opcion < 1 || opcion > 4);
+
+    opcion = opcion -1;
+
+    return opcion;
+}
+
+int chooseStarter() {
+    int opcion;
+
+    do {
+    cout << "Entrada: " << endl;
+    cout << "1_ Champinones Rellenos" << endl;
+    cout << "2_ Carpaccio de Salmon" << endl;
+    cout << "3_ Empanadas Saltenas" << endl;
+    cin >> opcion;
+    cout << endl;
+    } while (opcion < 1 || opcion > 3);
+
+    opcion = opcion -1;
+
+    return opcion;
+}
+
+int chooseMain() {
+    int opcion;
+
+    do {
+    cout << "Plato Principal:" << endl;
+    cout << "1_ Merluza en Salsa" << endl;
+    cout << "2_ Muslitos de Pollo al Sesamo" << endl;
+    cout << "3_ Paella Valenciana" << endl;
+    cout << "4_ Pierna de Cordero" << endl;
+    cout << "5_ Sandwich de Tofu con Satay" << endl;
+    cin >> opcion;
+    cout << endl;
+    } while (opcion < 1 || opcion > 5);
+
+    opcion = opcion -1;
+
+    return opcion;
+}
+
+int chooseDessert() {
+    int opcion;
+
+    do {
+    cout << "Postre:" <<endl;
+    cout << "1_ Mousse de Chocolate" <<endl;
+    cout << "2_ Flan con ddl y crema" << endl;
+    cout << "3_ Ensalada de Fruta" << endl;
+    cin >> opcion;
+    cout << endl;
+    } while (opcion < 1 || opcion > 3);
+
+    opcion = opcion -1;
+
+    return opcion;
+}
 
 
+const string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%d-%m-%Y %X", &tstruct);
 
-
-
-
+    return buf;
+}
 
 
 

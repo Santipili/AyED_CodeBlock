@@ -3,11 +3,13 @@ using namespace std;
 #include <string>
 #include <cctype>
 #include <iomanip>
-#include <time.h>
+#include <ctime>
 
 typedef enum{ Manzana, Kiwi, Pera, Banana, Naranja, Mandarina} tFruit;
 
 const string currentDateTime();
+
+int menuFruit();
 
 string showFruit (tFruit fruta);
 
@@ -23,7 +25,7 @@ int main() {
     int aux;
 
 
-    cout << "ingrese el codigo del provedor: ";
+    cout << "ingrese el codigo del provedor(solo numeros): ";
     cin >> codigo;
     cin.get();
 
@@ -41,17 +43,9 @@ int main() {
     cin >> anio;
 
 
-        cout << endl << "Elija Frutas:" << endl;
-        cout << setw(16)  << "1_ " << "Manzana"  << endl;
-        cout << setw(16)  << "2_ " << "Kiwi" << endl;
-        cout << setw(16)  << "3_ " << "Pera" <<  endl;
-        cout << setw(16)  << "4_ " << "Banana"  <<  endl;
-        cout << setw(16)  << "5_ " << "Naranja"  <<  endl;
-        cout << setw(16)  << "6_ " << "Mandarina" <<  endl;
-        cout << setw(13) << "= ";
-        cin >> aux;
+    aux = menuFruit();
 
-        fruta = tFruit(aux-1);
+    fruta = tFruit(aux);
 
 
 
@@ -81,13 +75,33 @@ string showFruit (tFruit fruta){
         eleccion = "Banana";
     }
     if (fruta == Naranja){
-        eleccion = Naranja;
+        eleccion = "Naranja";
     }
     if (fruta == Mandarina){
         eleccion = "Mandarina";
     }
 
    return eleccion;
+}
+
+int menuFruit() {
+    int opcion;
+
+    do {
+        cout << endl << "Elija Fruta:" << endl;
+        cout << setw(16)  << "1_ " << "Manzana"  << endl;
+        cout << setw(16)  << "2_ " << "Kiwi" << endl;
+        cout << setw(16)  << "3_ " << "Pera" <<  endl;
+        cout << setw(16)  << "4_ " << "Banana"  <<  endl;
+        cout << setw(16)  << "5_ " << "Naranja"  <<  endl;
+        cout << setw(16)  << "6_ " << "Mandarina" <<  endl;
+        cout << setw(13) << "= ";
+        cin >> opcion;
+    } while (opcion < 1 || opcion > 6);
+
+    opcion = opcion -1;
+
+    return opcion;
 }
 
 const string currentDateTime() {
