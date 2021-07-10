@@ -1,66 +1,38 @@
 #include <iostream>
 using namespace std;
-#include <string>
-#include <cctype>
-#include <iomanip>
-#include <time.h>
 
-int menu ();
+double getSalary (double x) ;
 
 int main() {
-	int option;
-    double sueldo;
+	double x, nuevo_x;
 
     cout << "Ingrese el sueldo a incrementar:" << endl;
-    cin >> sueldo;
+    cin >> x;
 
-    option = menu(sueldo);
+    nuevo_x = getSalary(x);
 
+    cout << endl;
+    cout << "$" << x << " -----> nuevo suelod: $" << nuevo_x;
 
-/*
-      	while ( option != 0){
-
-         	switch (option){
-        		
-
-        		case 1: {
-        				
-                    cout
-        		} 
-        		break;
-
-        		case 2: {
-        			
-        		}
-        		break;
-
-        		case 3:{
-        			
-        		}
-        		break;
-
-                case 4:{
-                    
-                }
-                break;
-
-        	}
-
-        	cout << endl;
-        	option = menu ();
-        }
-*/
-        cout << endl << "Gracias, hasta luego.";
-
+    cout << endl << "Good Bye!!";
 
 	return 0;
 }
 
-int menu (double sueldo){
-    int a;
-    double b;
+double getSalary (double x) {
+    double salary;
+    int aumento;
+
+    if (0 < x && x <= 9000) aumento = 20;
+
+    if (9000 < x && x <= 15000) aumento = 10;
+
+    if (15000 < x && x <= 20000) aumento = 5;
+
+    if (x > 20000) aumento = 3;
 
 
+    salary = x*aumento/100 + x;
 
-	return op;
+    return salary;
 }
