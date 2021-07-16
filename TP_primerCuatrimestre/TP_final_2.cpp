@@ -2,28 +2,28 @@
 using namespace std;
 #include <fstream>
 #include <string>
-#include <iomanip> 
+#include <iomanip>
 #include <cctype>
 
-typedef struct 
+typedef struct
 {
     string name;
     string surname;
     int ticket;
-    int long phone;
+    string phone;
     bool confirmation;
-    struct 
+    struct
     {
        string street;
        int number;
-    } address; 
+    } address;
 
 } tEstructura;
 
 const int Dim = 1000; // de 0 a 999
 typedef tEstructura tVector[Dim];
 
-typedef struct 
+typedef struct
 {
     tVector guest;
     int contador;
@@ -42,7 +42,7 @@ int searchPosition (tLista LISTA, int numticket);                   // Funcion p
 void modifyGuest (tLista& LISTA, int position , int optionChange);  // Modifica datos de un invitado
 int chooseWhat ();                                                  // menu de opciones a modificar
 
-int main () 
+int main ()
 {
     tLista list;
     int option;
@@ -71,21 +71,21 @@ int main ()
                 int position;
 
                 cout << endl << "ingrese numero de ticket: "; cin >> numticket;
-                
+
                 position = searchPosition (list, numticket);
-                 
+
                 showSpecific (list, position);
             } break;
 
             case 4: // eliminar invitado
-            {   
+            {
                 char continueDelete;
 
                 cout << "ATENCION!!! Si elimina un invitado tambien eliminara el ticket, para asignarselo a otra persona modifique invitado (opcion 5)" << endl;
 
                 cout << "Desea continuar? (Y/N): "; cin >> continueDelete;
                 continueDelete = toupper(continueDelete);
-                
+
                 if (continueDelete == 'Y')
                 {
                     int numticket;
@@ -102,7 +102,7 @@ int main ()
                 {
                     cout << endl;
                 }
-                
+
             } break;
 
             case 5: // modificar datos de un invitado
@@ -128,16 +128,19 @@ int main ()
             }
         }
 
-    } while (option != 7); 
+    } while (option < 7);
 
-    saveList (list, "lista_de_invitados.txt");
+    if (option == 7)
+    {
+        saveList (list, "lista_de_invitados.txt");
+    }
 
     cout << "Hasta Luego";
 
     return 0;
 }
 
-void loadList (const string path, tLista& LISTA) 
+void loadList (const string path, tLista& LISTA)
 {
     ifstream archivoLista;
     char aux;
@@ -145,31 +148,29 @@ void loadList (const string path, tLista& LISTA)
 
     LISTA.contador = pos = 0;
 
-    archivoLista.open(path); 
+    archivoLista.open(path);
 
-    if (archivoLista.is_open()) 
-    {        
-        do 
-        {  
+    if (archivoLista.is_open())
+    {
+        do
+        {
             archivoLista >> LISTA.guest[pos].ticket;
 
             archivoLista.get(aux);
             getline(archivoLista, LISTA.guest[pos].name);
 
-          //  archivoLista.get(aux);
             getline(archivoLista, LISTA.guest[pos].surname);
 
-            archivoLista >> LISTA.guest[pos].phone;
+            getline(archivoLista, LISTA.guest[pos].phone);
 
-            archivoLista.get(aux);
             getline(archivoLista, LISTA.guest[pos].address.street);
 
             archivoLista >> LISTA.guest[pos].address.number >> LISTA.guest[pos].confirmation;
 
-                    
-            pos++;  
 
-        } while ( !archivoLista.eof() ); 
+            pos++;
+
+        } while ( !archivoLista.eof() );
 
         LISTA.contador = pos ;
 
@@ -180,11 +181,11 @@ void loadList (const string path, tLista& LISTA)
     return;
 }
 
-int chooseOption () 
+int chooseOption ()
 {
     int op;
-    
-    do 
+
+    do
     {
         cout << "Que desea hacer?" << endl;
         cout << "1.- Ver Lista Completa de Invitados" << endl;
@@ -193,27 +194,28 @@ int chooseOption ()
         cout << "4.- Eliminar invitado" << endl;
         cout << "5.- Modificar datos" << endl; // y agregar confirmacion
         cout << "6.- Confirmar Invitados" << endl;
-        cout << "7.- Salir" << endl;
+        cout << "7.- Guardar y Salir" << endl;
+        cout << "8.- Salir" << endl;
         cin >> op;
-    } while ( op < 1 || op > 7);
+    } while ( op < 1 || op > 8);
 
     return op;
 }
 
-void showList(tLista LISTA) 
+void showList(tLista LISTA)
 {
     cout << endl;
     cout << "Lista de de Invitados ("<< LISTA.contador <<" invitados)" << endl;
 
-    cout << "CONFIRMACION" << " | " << setw(15) << "APELLIDO" << " | " << setw(20) << "NOMBRE";
+    cout << "CONFIRMACION" << " | " << setw(15) << "APELLIDO" << " | " << setw(18) << "NOMBRE";
     cout << " | " << setw(12) << "NRO. TICKET"<< endl;
 
     cout << endl;
 
-    for (int i=0; i < LISTA.contador; i++) 
+    for (int i=0; i < LISTA.contador; i++)
     {
         cout << setw(12) << showConfirmation( LISTA.guest[i].confirmation ) << " | ";
-        cout << setw(15) << LISTA.guest[i].surname << " | " << setw(20) << LISTA.guest[i].name << " | ";
+        cout << setw(15) << LISTA.guest[i].surname << " | " << setw(18) << LISTA.guest[i].name << " | ";
         cout << setw(12) << LISTA.guest[i].ticket<< endl;
     }
 
@@ -238,9 +240,9 @@ string showConfirmation (bool confirmacion)
     return respuesta;
 }
 
-void addNew (tLista& LISTA) 
+void addNew (tLista& LISTA)
 {
-    
+
     char enter;
 
     cin.ignore();
@@ -249,9 +251,8 @@ void addNew (tLista& LISTA)
     cout << "Nuevo Invitado.-" << endl;
     cout << "Nombre/s: "; getline( cin, LISTA.guest[LISTA.contador].name );
     cout << "Apellido: "; getline ( cin, LISTA.guest[LISTA.contador].surname);
-    cout << "Telefono: "; cin >> LISTA.guest[LISTA.contador].phone;
-  //  cin.get(enter);
-    cin.ignore();
+    cout << "Telefono: "; getline ( cin, LISTA.guest[LISTA.contador].phone);
+  //  cin.ignore();
     cout << "Direccion" << endl;
     cout << "Calle: "; getline ( cin, LISTA.guest[LISTA.contador].address.street);
     cout << "Numero: "; cin >> LISTA.guest[LISTA.contador].address.number;
@@ -280,8 +281,8 @@ void saveList (tLista LISTA, const string path)
     archivoLista.open(path);
 
     for (int i=0; i < LISTA.contador; i++)
-    { 
-        archivoLista << endl; 
+    {
+        archivoLista << endl;
         archivoLista << LISTA.guest[i].ticket << endl;
         archivoLista << LISTA.guest[i].name << endl;
         archivoLista << LISTA.guest[i].surname << endl;
@@ -289,24 +290,24 @@ void saveList (tLista LISTA, const string path)
         archivoLista << LISTA.guest[i].address.street << endl;
         archivoLista << LISTA.guest[i].address.number << endl;
         archivoLista << LISTA.guest[i].confirmation;
-    
+
     }
 
-    return; 
+    return;
 }
 
 void showSpecific (tLista LISTA, int position)
 {
-    
+
     cout << endl;
     cout << "Nombre Completo...: " << LISTA.guest[position].surname << ", " << LISTA.guest[position].name << endl;
     cout << "Nro. Telefono.....: " << LISTA.guest[position].phone << endl;
     cout << "Direccion.........: " << LISTA.guest[position].address.street << " " << LISTA.guest[position].address.number << endl;
     cout << setw(10) << showConfirmation( LISTA.guest[position].confirmation ) << endl;
-  
-    
+
+
     return;
-}       
+}
 
 void deleteGuest (tLista& LISTA, int position)
 {
@@ -331,7 +332,7 @@ void confirmGuests (tLista& LISTA)
     char aux;
 
     cout << endl;
-    cout << "NRO. TICKET"  << " | " << setw(15) << "APELLIDO" << " | " << setw(20) << "NOMBRE";
+    cout << "NRO. TICKET"  << " | " << setw(15) << "APELLIDO" << " | " << setw(18) << "NOMBRE";
     cout << " | " << "CONFIRMACION" << endl;
 
     for (int i=0; i < LISTA.contador; i++)
@@ -339,18 +340,18 @@ void confirmGuests (tLista& LISTA)
         if (LISTA.guest[i].confirmation)
         {
             cout << setw(11) << LISTA.guest[i].ticket << " | ";
-            cout << setw(15) << LISTA.guest[i].surname << " | " << setw(20) << LISTA.guest[i].name << " | ";
-            cout << "Confirmado" << endl; 
+            cout << setw(15) << LISTA.guest[i].surname << " | " << setw(18) << LISTA.guest[i].name << " | ";
+            cout << "Confirmado" << endl;
         }
         else
         {
             cout << setw(11) << LISTA.guest[i].ticket << " | ";
-            cout << setw(15) << LISTA.guest[i].surname << " | " << setw(20) << LISTA.guest[i].name << " | ";
+            cout << setw(15) << LISTA.guest[i].surname << " | " << setw(18) << LISTA.guest[i].name << " | ";
             cout << " ---> Confirmar? (y/n): ";
             cin >> aux;
 
             aux = toupper(aux);
-   
+
             if (aux == 'Y' )
             {
                 LISTA.guest[i].confirmation = true;
@@ -389,7 +390,7 @@ void modifyGuest (tLista& LISTA, int position , int optionChange)
     {
         case 1:
         {
-            cout << "Nombre/s..........: "; 
+            cout << "Nombre/s..........: ";
             getline(cin,LISTA.guest[position].name);
         } break;
 
@@ -400,13 +401,13 @@ void modifyGuest (tLista& LISTA, int position , int optionChange)
 
         case 3:
         {
-            cout << "Nro. Telefono.....: "; cin >> LISTA.guest[position].phone;
+            cout << "Nro. Telefono.....: "; getline ( cin, LISTA.guest[LISTA.contador].phone);
         } break;
 
         case 4:
         {
             cout << "Direccion" << endl;
-            cout << "Calle.............: "; getline(cin,LISTA.guest[position].address.street); 
+            cout << "Calle.............: "; getline(cin,LISTA.guest[position].address.street);
             cout << "Numero............: "; cin >> LISTA.guest[position].address.number;
 
         } break;
@@ -415,8 +416,8 @@ void modifyGuest (tLista& LISTA, int position , int optionChange)
         {
             cout << "¿Confirmado? (Y/N): "; cin >> aux;
             aux = toupper(aux);
-    
-            if (aux == 'Y' )
+
+            if (aux == 'Y')
             {
                 LISTA.guest[position].confirmation = true;
             }
@@ -431,15 +432,14 @@ void modifyGuest (tLista& LISTA, int position , int optionChange)
             cout << "Nuevos Datos" << endl;
             cout << "Nombre/s..........: "; getline(cin,LISTA.guest[position].name);
             cout << "Apellido..........: "; getline(cin,LISTA.guest[position].surname);
-            cout << "Nro. Telefono.....: "; cin >> LISTA.guest[position].phone;
+            cout << "Nro. Telefono.....: "; getline ( cin, LISTA.guest[LISTA.contador].phone);
             cout << "Direccion" << endl;
-            cin.ignore();
-            cout << "Calle.............: "; getline(cin,LISTA.guest[position].address.street); 
+            cout << "Calle.............: "; getline(cin,LISTA.guest[position].address.street);
             cout << "Numero............: "; cin >> LISTA.guest[position].address.number;
             cout << "¿Confirmado? (Y/N): "; cin >> aux;
             aux = toupper(aux);
-    
-            if (aux == 'Y' )
+
+            if (aux == 'Y')
             {
             LISTA.guest[position].confirmation = true;
             }
@@ -447,7 +447,7 @@ void modifyGuest (tLista& LISTA, int position , int optionChange)
             {
                 LISTA.guest[position].confirmation = false;
             }
-        } 
+        }
     }
 
     cout << endl;
@@ -459,7 +459,7 @@ int chooseWhat ()
 {
     int op;
 
-    do 
+    do
     {
         cout << "Que desea cambiar?" << endl;
         cout << "1.- Nombre/s" << endl;
@@ -467,7 +467,7 @@ int chooseWhat ()
         cout << "3.- Nro. Telefono" << endl;
         cout << "4.- Direccion" << endl;
         cout << "5.- Confirmacion" << endl;
-        cout << "6.- Todo" << endl;  
+        cout << "6.- Todo" << endl;
         cin >> op;
 
     } while (op<1 || op>6);
