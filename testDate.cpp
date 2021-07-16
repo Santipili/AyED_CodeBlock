@@ -1,10 +1,10 @@
 #include <string>
-
-#include <time.h>
+#include <ctime>
 #include <iostream>
 using namespace std;
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+// si quisiera usar put_time() deberia poner la libreria <iomanip>
 
 const string currentDateTime() {
     time_t     now = time(0);
