@@ -19,7 +19,7 @@ int main() {
 	return 0;
 }
 
-double getSalary (double x) {
+double getSalary (double x) { // como uso switch aqui??
     double salary;
     int aumento;
 
@@ -30,7 +30,6 @@ double getSalary (double x) {
     if (15000 < x && x <= 20000) aumento = 5;
 
     if (x > 20000) aumento = 3;
-
 
     salary = x*aumento/100 + x;
 
