@@ -9,7 +9,7 @@ typedef struct {
     string apellido;
     int edad;
     int long DNI;
-    int nota;
+    double nota;
 } tEstructura;
     
 typedef tEstructura tVector[49];
@@ -29,52 +29,61 @@ void saveList (const string path, tLista& LISTA);
 void deleteOne (tLista& LISTA);
 void changeNotes(tLista& LISTA);
 void clasificateNotes (tLista LISTA);
+double searchHigestNote (tLista LISTA);
 int calculatePromedio (tLista LISTA);
 
 int main () {
     tLista lista;
-    int op;
+    int option;
     
     cargaDeArchivo("AyED1.txt", lista); // cargar lista
 
     do {
-        op = menuPrincipal ();
+        option = menuPrincipal ();
         
-        switch (op){
+        switch (option){
             case 1:{
             //-----------LISTA Completa-------------------------------------------------------------------------------
                 showList(lista);
+                cout << endl;
             } break;
 
             case 2:{
             //------Nuevo Elemento------------------------------------------------------------------------------------
                 addNew (lista);
-                saveList ("AyED1.txt", lista);
+                cout << endl;
             } break;
 
             case 3:{
             //------------Modificar elemento--------------------------------------------------------------------------
                 changeOne (lista);
-                saveList ("AyED1.txt", lista);
+                cout << endl;
             }break;
 
             case 4:{
-            //-------------Borrar elemento----------------------------------------------------------------------------           
+            //-------------Borrar elemento------------------------------------------------------------------           
                 deleteOne (lista);
+                cout << endl;
             } break;
 
             case 5:{
             //-------------Carga de Notas-----------------------------------------------------------------------------
                 changeNotes(lista);
+                cout << endl;
             } break;
 
             case 6:{
             //-------------Lista de Notas------------------------------------------------------------------------------  
-
+                cout << "Mejores notas" << endl;
+                clasificateNotes(lista);
+                cout << endl << "La nota promedio de " << lista.contador << " alumnos es: " << calculatePromedio(lista) << endl;
+                cout << endl;
             }
         }
 
-    } while (op < 7);
+    } while (option < 7);
+
+    saveList ("AyED1.txt", lista);
 
     cout << "Adios, gracias!!";
 
@@ -94,7 +103,7 @@ void cargaDeArchivo (const string path, tLista& LISTA) {
 
     if (archivoLista.is_open()) {
         
-        do {
+        while ( !archivoLista.eof() ) {
 
             archivoLista >> LISTA.alumno[pos].edad >> LISTA.alumno[pos].DNI >> LISTA.alumno[pos].nota >> LISTA.alumno[pos].apellido;
               
@@ -104,7 +113,7 @@ void cargaDeArchivo (const string path, tLista& LISTA) {
 
             pos++;  
 
-        } while ( !archivoLista.eof() ); 
+        }  
 
         LISTA.contador = pos ;
 
@@ -212,7 +221,7 @@ void saveList (const string path, tLista& LISTA) {
     if (archivoLista.is_open()) {
         
         do {
-            archivoLista << LISTA.alumno[pos].edad << " " <<  LISTA.alumno[pos].DNI << " " << LISTA.alumno[pos].nota << " " << LISTA.alumno[pos].apellido << " " << LISTA.alumno[pos].nombre << endl;
+            archivoLista << endl << LISTA.alumno[pos].edad << " " <<  LISTA.alumno[pos].DNI << " " << LISTA.alumno[pos].nota << " " << LISTA.alumno[pos].apellido << " " << LISTA.alumno[pos].nombre;
 
             pos++;  
 
@@ -241,16 +250,11 @@ void deleteOne (tLista& LISTA) { //debo crear otra funcion para utilizar adentro
 
         for (int i = pos; i< LISTA.contador - 1; i++){
 
-            LISTA.alumno[i].nombre = LISTA.alumno[i+1].nombre;
-    
-            LISTA.alumno[i].apellido = LISTA.alumno[i+1].apellido;
-
-            LISTA.alumno[i].DNI = LISTA.alumno[i+1].DNI;
-
-            LISTA.alumno[i].edad = LISTA.alumno[i+1].edad;
-
-            LISTA.alumno[i].nota = LISTA.alumno[i+1].nota;
+            LISTA.alumno[i] = LISTA.alumno[i+1];
+           
         }
+
+        LISTA.contador--;
     }
     else {
         cout << "No hubo coincidencia";
@@ -269,35 +273,37 @@ void changeNotes(tLista& LISTA) {
     return;
 }
 
-void clasificateNotes (tLista LISTA) {// debo crear otras funciones para que haga una sola cosa
-    int nota, pos;
-    int vectorNotas[50];
+void clasificateNotes (tLista LISTA) {// lista de alumnos con nota mas alta (mandar al main una parte)
+    int pos;
+    double nota;
 
-    nota = pos = 0;
-
-    cout << "Mejores notas" << endl;
+    pos = 0;
 
     // Valor nota mas alta
+    nota = searchHigestNote (LISTA);
+
+    // muestra todos los que tienen esa nota
+    for (int i=0; i < LISTA.contador; i++) {
+       
+        if (LISTA.alumno[i].nota == nota) 
+        {
+            cout << LISTA.alumno[i].apellido << ", " << LISTA.alumno[i].nombre << " - Nota: " << LISTA.alumno[i].nota << endl; 
+        }   
+    }
+
+    return;
+}
+
+double searchHigestNote (tLista LISTA)
+{
+    double nota;
+
     for (int i=0; i < LISTA.contador; i++) {
         if (LISTA.alumno[i].nota > nota) 
             nota = LISTA.alumno[i].nota;    
     }
 
-    // vector de posiciones donde tienen la nota mas alta
-    for (int i=0; i < LISTA.contador; i++) {
-        
-        if (LISTA.alumno[i].nota == nota) {
-            vectorNotas[pos] = i;
-            pos++;
-        }
-    }
-
-    // lista de alumnos que tienen la nota mas alta
-    for (int i=0; i < pos; i++) {
-        cout << LISTA.alumno[vectorNotas[i]].apellido << ", " << LISTA.alumno[vectorNotas[i]].nombre << " - Nota: " << LISTA.alumno[vectorNotas[i]].nota << endl; 
-    }
-
-    return;
+    return nota;
 }
 
 int calculatePromedio (tLista LISTA) {
