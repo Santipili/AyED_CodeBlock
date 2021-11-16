@@ -81,7 +81,7 @@ int main ()
             {
                 char continueDelete;
 
-                cout << "ATENCION!!! Si elimina un invitado tambien eliminara el ticket, para asignarselo a otra persona modifique invitado (opcion 5)" << endl;
+                cout << "ATENCION!!! Si elimina un invitado tambien eliminara el ticket. Para asignarselo a otra persona modifique invitado (opcion 5)" << endl;
 
                 cout << "Desea continuar? (Y/N): "; cin >> continueDelete;
                 continueDelete = toupper(continueDelete);
@@ -140,7 +140,7 @@ int main ()
     return 0;
 }
 
-void loadList (const string path, tLista& LISTA)
+void loadList(const string path, tLista& LISTA)
 {
     ifstream archivoLista;
     char aux;
