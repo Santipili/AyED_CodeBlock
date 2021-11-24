@@ -1,21 +1,33 @@
-#include "../lib/animalstypes.h"
+#include "../lib/animalsTypes.h"
+#include <iostream>
 
-string Animal::getName() 
+Oviparous::~Oviparous()
 {
-    return name;
+    std::cout << "Se elimino Oviparo" << std::endl;
 }
 
-void Animal::setName(string newName)
+void Oviparous::showType()
 {
-    name = newName;
+    std::cout << "Es un oviparo" << std::endl;
 }
 
-int Animal::getCode()
+void Oviparous::layEggs()
 {
-    return code;
+    std::cout << "Pone huevos" << std::endl;
 }
 
-void Animal::setCode(int newCode)
+Mammal::~Mammal()
 {
-    code= newCode;
+    std::cout << "Se elimino Mamifero" << std::endl;
 }
+
+void Mammal::showType()
+{
+    std::cout << "Es un mamifero" << std::endl;
+}
+
+void Mammal::nurse()
+{
+    std::cout << "Amamanta a su cria" << std::endl;
+}
+

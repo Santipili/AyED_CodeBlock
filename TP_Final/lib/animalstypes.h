@@ -1,35 +1,26 @@
-#ifndef animalstypes_h
-#define animalstypes_h
+#pragma once
 
+#include "animalBase.h"
 #include <iostream>
+using namespace std;
 
-std::class Animal 
+class    Oviparous: public Animal 
 {
-    private:
-    std::string name;
-    std::int code;
-
     public:
-    virtual void eat() = 0; //una frase de que esta comiendo feliz, distinta por animal
-    virtual void sleep() =0;
+    virtual void showType();
+    virtual void layEggs(); 
     
-    std::string getName();
-    void setName(std::string newName);
-    std::int getCode();    
-    void setCode(std::int newCode);
+    Oviparous(string _name, string _meal, int _code): Animal( _name, _meal, _code) {}
+    virtual ~Oviparous();
 };
 
-
-std::class    Oviparous: public Animal //interface
-{
+class Mammal: public Animal 
+{   
     public:
-    virtual void layEggs() = 0; //modificar funcionalidad
+    virtual void showType();
+    virtual void nurse(); 
+
+    Mammal(string _name, string _meal, int _code): Animal( _name, _meal, _code) {}
+    virtual ~Mammal();
 };
 
-std::class Mammal: public Animal //interface
-{
-    public:
-    virtual void nurse() = 0; //modificar funcionalidad
-};
-
-#endif
